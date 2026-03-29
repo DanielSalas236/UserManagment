@@ -53,8 +53,12 @@ public class UserService {
     /**
      * Elimina un usuario del sistema.
      * @param id ID del usuario a eliminar
+     * @throws EntityNotFoundException si el usuario no existe
      */
     public void deleteUser(Long id){
+        if (!userRepository.existsById(id)) {
+            throw new EntityNotFoundException("Usuario no encontrado con id: " + id);
+        }
         userRepository.deleteById(id);
     }
 }
